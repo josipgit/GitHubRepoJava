@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Start page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .article-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+        .article-card p {
+            margin: 4px 0;
+        }
+        h2 {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<h1>Article Search</h1>
+
+<form action="#" th:action="@{/start/articleSearch.html}" th:object="${searchArticleDTO}" method="post">
+    <p>Article name: <input type="text" th:field="*{articleName}" /></p>
+    <p>Article description: <input type="text" th:field="*{articleDescription}" /></p>
+    <p>Article price: From
+        <input type="number" th:field="*{lowerPrice}" /> to
+        <input type="number" th:field="*{upperPrice}" /></p>
+    <p>Category name:
+        <select th:field="*{categoryName}">
+            <option th:each="cat : ${categoryList}" th:value="${cat}" th:text="${cat}">
+            </option>
+        </select>
+    </p>
+    <p>
+        <input type="submit" value="Search" />
+        <input type="reset" value="Reset" />
+    </p>
+</form>
+
+<h2>Search Results</h2>
+
+<div th:if="${filteredArticles.empty}">
+    <p>No Articles Available</p>
+</div>
+
+<div th:each="articleDTO : ${filteredArticles}" class="article-card">
+    <p><strong>Article name:</strong> <span th:text="${articleDTO.articleName}">Name</span></p>
+    <p><strong>Article description:</strong> <span th:text="${articleDTO.articleDescription}">Description</span></p>
+    <p><strong>Article price:</strong> <span th:text="${articleDTO.articlePrice}">Price</span></p>
+    <p><strong>Category name:</strong> <span th:text="${articleDTO.categoryName}">Category</span></p>
+</div>
+</body>
+</html>

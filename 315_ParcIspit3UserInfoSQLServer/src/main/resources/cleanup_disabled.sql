@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS Upis;
+DROP TABLE IF EXISTS ProgramObrazovanja;
+DROP TABLE IF EXISTS Polaznik;
